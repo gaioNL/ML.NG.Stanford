@@ -54,8 +54,13 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
-
-
+for i = 1:m
+  %use  trainLinearReg to find the theta
+  theta = trainLinearReg(X(1:i, :),y(1:i), lambda);
+  %compute train/cross validation errors using training examples 
+  error_train(i) = linearRegCostFunction(X(1:i, :),y(1:i),theta, 0);
+  error_val(i) = linearRegCostFunction(Xval, yval,theta, 0);
+end
 
 
 

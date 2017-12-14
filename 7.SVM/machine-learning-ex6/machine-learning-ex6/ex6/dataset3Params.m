@@ -25,7 +25,30 @@ sigma = 0.3;
 
 
 
+bestErr = Inf;
+bestC = Inf;
+bestsigma = Inf;
 
+Cs = [0.01 0.03 0.1 0.3 1 3 10 30];
+sigmas = [0.01 0.03 0.1 0.3 1 3 10 30];
+
+for i=1:length(Cs)
+    C = Cs(i);
+    for j=1:length(sigmas)
+      sigma = sigmas(j);
+      model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma)); 
+      predictions = svmPredict(model, Xval);
+      modelErr = mean(double(predictions ~= yval));
+      if modelErr < bestErr
+        bestErr = modelErr;
+        bestC = C;
+        bestsigma = sigma;
+      endif
+  end
+end
+
+C = bestC;
+sigma = bestsigma;
 
 
 

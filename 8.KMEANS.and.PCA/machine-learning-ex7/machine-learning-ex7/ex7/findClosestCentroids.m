@@ -23,6 +23,15 @@ idx = zeros(size(X,1), 1);
 
 
 
+for i=1:size(X,1)
+  min_dist=inf;
+  for j=1:K
+    distXCertroid = norm(X(i,:) - centroids(j,:));
+    if distXCertroid < min_dist
+      min_dist = distXCertroid;
+      idx(i) = j;
+    end
+  end
 
 
 
